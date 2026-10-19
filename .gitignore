@@ -1,0 +1,12 @@
+# Never commit the third-party MCP binary (installer downloads it)
+pixel-mcp
+pixel-mcp-*
+bin/
+
+# Local machine config
+config/config.json
+
+# OS / editor cruft
+.DS_Store
+*.swp
+test-outputs/

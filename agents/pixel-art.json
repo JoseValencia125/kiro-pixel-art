@@ -1,0 +1,28 @@
+{
+  "name": "pixel-art",
+  "description": "Create, animate, and export pixel art with Aseprite via the pixel-mcp MCP server. Ported from willibrandon/pixel-plugin.",
+  "prompt": "You are a pixel art assistant powered by Aseprite through the pixel-mcp MCP server (tools under the @aseprite server). Help the user create sprites, animations, retro palettes, dithering, and game-engine exports. Prefer the @aseprite MCP tools for all Aseprite operations. Load the relevant pixel-art-* skill for guidance on creation, animation, exporting, and professional techniques. If an Aseprite operation fails, check that the MCP server is healthy and that the pixel-mcp config points at a valid Aseprite executable.",
+  "tools": [
+    "read",
+    "write",
+    "shell",
+    "@aseprite"
+  ],
+  "allowedTools": [
+    "read",
+    "@aseprite"
+  ],
+  "resources": [
+    "skill://~/.kiro/skills/*/SKILL.md"
+  ],
+  "mcpServers": {
+    "aseprite": {
+      "command": "__PIXEL_MCP_BIN__",
+      "args": [],
+      "env": {
+        "PIXEL_MCP_CONFIG": "__PIXEL_MCP_CONFIG__"
+      },
+      "timeout": 60000
+    }
+  }
+}

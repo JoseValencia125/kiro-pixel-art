@@ -1,0 +1,26 @@
+kiro-pixel-art
+==============
+
+This project is a port of the Claude Code plugin "pixel-plugin" to Kiro CLI.
+
+Upstream project:
+  willibrandon/pixel-plugin — https://github.com/willibrandon/pixel-plugin
+  Copyright (c) 2025 Brandon Williams
+  Licensed under the MIT License (see LICENSE.upstream).
+
+The following material is derived from the upstream project and remains under
+its original MIT License:
+  - The pixel art skills under skills/pixel-art-* (SKILL.md, reference.md,
+    examples.md, and format references).
+  - The command definitions adapted into skills/pixel-{new,setup,export,palette,help}.
+  - The pixel-mcp server binary (NOT redistributed here; downloaded by the
+    installer from the upstream repository at install time).
+
+The following material is original to this port:
+  - agents/pixel-art.json (Kiro agent configuration)
+  - install/install.sh and install/uninstall.sh
+  - Kiro-specific frontmatter and tool-name adaptations
+  - README.md
+
+Aseprite (https://www.aseprite.org/) is a separate product with its own
+license and is not included or redistributed by this project.
