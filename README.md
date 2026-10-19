@@ -12,18 +12,19 @@ Create, animate, and export **pixel art with Aseprite** directly from
 This is a **port of [willibrandon/pixel-plugin](https://github.com/willibrandon/pixel-plugin)**
 (a Claude Code plugin) to Kiro's agent + skills model. It wires the bundled
 [`pixel-mcp`](https://github.com/willibrandon/pixel-plugin) MCP server into a
-Kiro agent and ships six workflow skills plus five slash-command skills.
+Kiro agent and ships seven workflow skills plus five slash-command skills.
 
 > Requires [Aseprite](https://www.aseprite.org/) v1.3.0+ installed locally.
 
 ## Examples
 
 <p align="center">
-  <img src="examples/starry-night-vangogh.png" alt="Pixel-art homage to Van Gogh's The Starry Night" width="460">
+  <img src="examples/sword-run.gif" alt="A swordsman run cycle in pixel art" width="200">
   <br>
-  <em>A pixel-art homage to Van Gogh's <strong>The Starry Night</strong> (1889) —
-  swirling sky, haloed stars, crescent moon, the flame-cypress and a village with
-  a steeple (see <code>examples/starry-night-vangogh.lua</code>).</em>
+  <em>An 8-frame <strong>swordsman run cycle</strong> (contact → down → pass →
+  airborne, two steps) with forward lean, vertical bob, arm/leg opposition and a
+  swinging sword — built from the animation rulebook
+  (see <code>examples/sword-run.lua</code>).</em>
 </p>
 
 <p align="center">
@@ -52,6 +53,7 @@ quantization, dithering, shading, spritesheet export, …).
 | `pixel-art-exporter` | PNG/GIF/spritesheet/JSON for Unity, Godot, Phaser |
 | `pixel-art-grid` | generate pixel art as structured **grid-JSON** (24×24 ints + palette) and render it to a real sprite — based on the [Pixel Art Bench Lite](https://huggingface.co/datasets/AINovice2005/pixel-art-bench-lite) benchmark |
 | `pixel-art-rules` | **MUST / SHOULD / AVOID rulebook** (78 rules + validation checklist): silhouette, palette ramps, clusters & noise, banding, shading, anti-aliasing, dithering, animation, and the tells of AI-generated pixel art |
+| `pixel-art-animation-rules` | **MUST / SHOULD / NEVER animation rulebook** (54 rules + checklist): planning, timing & spacing / tick ladder, easing, walk & run cycles, jumps, melee attacks, secondary motion, sub-pixel, modular and top-down animation |
 
 **Command skills** (slash commands):
 

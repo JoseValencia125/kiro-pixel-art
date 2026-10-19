@@ -47,6 +47,17 @@ teaching. Credit to those sources:
 These sources are referenced for study; no copyrighted text or images from them
 are redistributed in this repository.
 
-examples/starry-night-vangogh.* is an original pixel-art homage to Vincent van
-Gogh's "The Starry Night" (1889), which is in the public domain. No copyrighted
-reproduction is redistributed; the pixels were drawn programmatically.
+
+The pixel-art-animation-rules skill (skills/pixel-art-animation-rules) is an
+original rulebook whose rules are synthesised and paraphrased (no text copied)
+from established animation teaching. Credit to those sources:
+  - Pedro Medeiros / Saint11 (Lospec tutorials: walk cycle, animation planning,
+    easing, 1-pixel/sub-pixel movement, modular animation, slide/roll/dash).
+  - SLYNYRD / Pixelblog (intro to animation, melee attacks, motion cycles,
+    human walk cycle).
+  - Pixeli Knowledge Base (timing & spacing, walk & run, attacks & impacts,
+    jump/fall/land, sub-pixel, top-down).
+  - Lospec animation and walk-cycle tutorial tags.
+  - Richard Williams, The Animator's Survival Kit, and the 12 principles of
+    animation (as applied to pixel art by Saultoons).
+examples/sword-run.* is an original pixel-art animation drawn programmatically.

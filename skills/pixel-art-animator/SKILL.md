@@ -312,3 +312,10 @@ You've successfully used this Skill when:
 - Animation tags created with correct ranges
 - User understands animation will loop or play as specified
 - Animation is ready for export or further refinement
+
+## See also
+
+For animation *principles* (timing & spacing, easing, walk/run poses, attack
+phases, secondary motion) and a review checklist, consult the
+**pixel-art-animation-rules** skill. This skill is the Aseprite how-to; that one
+is the rulebook.
