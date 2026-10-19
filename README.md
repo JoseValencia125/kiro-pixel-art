@@ -16,6 +16,26 @@ Kiro agent and ships six workflow skills plus five slash-command skills.
 
 > Requires [Aseprite](https://www.aseprite.org/) v1.3.0+ installed locally.
 
+## Examples
+
+<p align="center">
+  <img src="examples/starry-night.png" alt="A starry night scene in pixel art" width="420">
+  <br>
+  <em>Starry night — hue-shifted sky with ordered dithering, scatter stars, a
+  terminator-shaded moon, and low-contrast hills for depth (see
+  <code>examples/starry-night.lua</code>).</em>
+</p>
+
+<p align="center">
+  <img src="examples/slime-walk-4dir.gif" alt="A slime hop cycle animated in four directions" width="160">
+  <br>
+  <em>A slime hop cycle in four directions (down / up / left / right), kept
+  consistent in palette, size and timing — one character seen from several sides
+  (see <code>examples/slime-walk.lua</code>).</em>
+</p>
+
+See the [`examples/`](examples) folder for the scripts that generated each piece.
+
 ## What you get
 
 **Agent** (`pixel-art`) — registers the `pixel-mcp` server as the `@aseprite`
