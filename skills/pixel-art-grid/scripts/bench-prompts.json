@@ -1,0 +1,13 @@
+{
+  "source": "AINovice2005/pixel-art-bench-lite (Apache-2.0)",
+  "instruction": "Draw pixel art on a 24x24 grid. Return a JSON object with: - \"grid\": 24x24 list of integers (0-9) - \"palette\": list of colors used",
+  "prompts": [
+    { "id": "mario",     "subject": "Mario from Super Mario Bros",        "category": "character" },
+    { "id": "rainbow",   "subject": "a rainbow",                          "category": "nature" },
+    { "id": "sun",       "subject": "the sun",                            "category": "nature" },
+    { "id": "saturn",    "subject": "the planet Saturn with its rings",   "category": "space" },
+    { "id": "maze",      "subject": "a maze",                             "category": "abstract" },
+    { "id": "mona_lisa", "subject": "the Mona Lisa",                      "category": "art" },
+    { "id": "hope",      "subject": "hope",                               "category": "abstract" }
+  ]
+}

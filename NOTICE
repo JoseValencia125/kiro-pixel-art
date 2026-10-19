@@ -24,3 +24,9 @@ The following material is original to this port:
 
 Aseprite (https://www.aseprite.org/) is a separate product with its own
 license and is not included or redistributed by this project.
+
+The pixel-art-grid skill (skills/pixel-art-grid) is based on the dataset
+"pixel-art-bench-lite" by AINovice2005
+(https://huggingface.co/datasets/AINovice2005/pixel-art-bench-lite),
+licensed under Apache-2.0. Only the task format and the seven subject prompts
+are reused; no dataset images are redistributed.

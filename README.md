@@ -12,7 +12,7 @@ Create, animate, and export **pixel art with Aseprite** directly from
 This is a **port of [willibrandon/pixel-plugin](https://github.com/willibrandon/pixel-plugin)**
 (a Claude Code plugin) to Kiro's agent + skills model. It wires the bundled
 [`pixel-mcp`](https://github.com/willibrandon/pixel-plugin) MCP server into a
-Kiro agent and ships the four workflow skills plus five slash-command skills.
+Kiro agent and ships five workflow skills plus five slash-command skills.
 
 > Requires [Aseprite](https://www.aseprite.org/) v1.3.0+ installed locally.
 
@@ -30,6 +30,7 @@ quantization, dithering, shading, spritesheet export, …).
 | `pixel-art-animator` | frames, tags, timing, walk/idle/attack cycles |
 | `pixel-art-professional` | dithering, palette optimization, shading, antialiasing |
 | `pixel-art-exporter` | PNG/GIF/spritesheet/JSON for Unity, Godot, Phaser |
+| `pixel-art-grid` | generate pixel art as structured **grid-JSON** (24×24 ints + palette) and render it to a real sprite — based on the [Pixel Art Bench Lite](https://huggingface.co/datasets/AINovice2005/pixel-art-bench-lite) benchmark |
 
 **Command skills** (slash commands):
 
@@ -88,6 +89,34 @@ Supported platforms: macOS (arm64/x86_64) and Linux (arm64/x86_64).
   `$ARGUMENTS`).
 - Tool references were updated to the names actually exposed by `pixel-mcp`
   v0.5.0 (e.g. `export_sprite` / `export_spritesheet` / `quantize_palette`).
+
+## Structured grid-JSON (Pixel Art Bench Lite)
+
+The `pixel-art-grid` skill adds a structured-output workflow based on the
+[`AINovice2005/pixel-art-bench-lite`](https://huggingface.co/datasets/AINovice2005/pixel-art-bench-lite)
+benchmark (Apache-2.0). You describe a subject; the agent emits a 24×24 grid of
+integers `0-9` plus a color palette, and renders it to a real sprite with
+Aseprite.
+
+```json
+{ "grid": [[0,1,1, ...], ...], "palette": ["transparent", "yellow", "orange"] }
+```
+
+Render and score any grid-JSON:
+
+```bash
+# render (paths via env vars; this Aseprite build ignores --script-param)
+GRID_JSON=sun.json GRID_OUT=sun.png GRID_SCALE=16 \
+  "$ASEPRITE" -b --script skills/pixel-art-grid/scripts/render-grid.lua
+
+# score it (JSON validity + quality = 0.7*diversity + 0.3*density)
+python3 skills/pixel-art-grid/scripts/score-grid.py sun.json
+```
+
+The seven benchmark prompts (mario, rainbow, sun, saturn, maze, mona_lisa, hope)
+ship in `skills/pixel-art-grid/scripts/bench-prompts.json` as ready-made tests.
+See [`examples/kiro-ghost-grid.json`](examples/kiro-ghost-grid.json) for the Kiro
+ghost expressed in this format.
 
 ## Credits & License
 
