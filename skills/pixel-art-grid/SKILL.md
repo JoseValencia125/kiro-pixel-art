@@ -50,9 +50,11 @@ Workflow:
 
 ## Rendering to a real sprite
 
-The renderer `scripts/render-grid.lua` parses the JSON and draws the sprite.
-This Aseprite build does not reliably pass `--script-param`, so paths are passed
-via environment variables:
+The renderer `scripts/render-grid.lua` **validates** the JSON (schema, ragged
+rows, out-of-range cells, palette coverage) and then draws the sprite. On a
+validation problem it prints a line starting with `ERROR:` and writes nothing,
+so you get actionable feedback to fix the grid. This Aseprite build does not
+reliably pass `--script-param`, so options come from environment variables:
 
 ```bash
 ASEPRITE="/Applications/Aseprite.app/Contents/MacOS/aseprite"   # or your path
@@ -60,12 +62,26 @@ GRID_JSON=subject.json GRID_OUT=subject.png GRID_SCALE=16 \
   "$ASEPRITE" -b --script scripts/render-grid.lua
 ```
 
-- `GRID_JSON` — input JSON file
-- `GRID_OUT`  — output `.png` (or `.aseprite`)
-- `GRID_SCALE`— integer upscale (default 16; 24×24 grid → 384×384 at 16×)
+- `GRID_JSON`   — input JSON file (required)
+- `GRID_OUT`    — output `.png` (or `.aseprite`); default `grid.png`
+- `GRID_SCALE`  — integer upscale (default 16; 24×24 grid → 384×384 at 16×)
+- `GRID_BG`     — background index to treat as transparent (default `0`;
+                  `none` renders every cell)
+- `GRID_PREVIEW`— `1` (default) prints an **ASCII preview** of the result after
+                  rendering, so you can self-verify the shape in text without a
+                  vision model (background cells show as `.`, others as their digit)
 
-After rendering, verify the result with the `read` tool (Image mode) and adjust
-the grid if the shape, colors, or density are off. Re-render until it matches.
+After rendering, read the ASCII preview (and/or open the PNG with the `read`
+tool) and adjust the grid if the shape, colors, or density are off. Re-render
+until it matches.
+
+### Supported palette colors
+
+The renderer understands `#rrggbb` / `#rgb` hex and ~60 named colors (black,
+white, grays, red/crimson/maroon, orange/amber, yellow/gold, several greens,
+blues/navy/sky, cyan/teal/turquoise, purple/violet/indigo/magenta, pink/lavender,
+brown/tan/beige, skin/peach/cream, …). Unknown names fall back to a stable hash
+color and print a `WARN:` line so you can pick a real one.
 
 ## Benchmark prompts (test subjects)
 
@@ -91,13 +107,41 @@ Each benchmark prompt is literally:
 
 ## Self-scoring helper
 
-`scripts/score-grid.py` computes a rough quality score for a grid-JSON file
-(JSON validity, color diversity, non-background density) mirroring the benchmark,
-so the agent can iterate toward a better result:
+`scripts/score-grid.py` validates a grid-JSON and computes a quality score that
+mirrors the benchmark, so you can iterate toward a better result:
 
 ```bash
-python3 scripts/score-grid.py subject.json
+python3 scripts/score-grid.py subject.json            # bg index 0 (default)
+python3 scripts/score-grid.py subject.json --bg none  # count every cell
 ```
+
+It reports:
+
+- **diversity** — normalized Shannon entropy over non-background colors (rewards
+  several colors in balanced proportions, not just "N distinct").
+- **density** — non-background fill, saturating near ~60% (don't need a full canvas).
+- **structure** — shape coherence via connected components (few large regions →
+  high; scattered single pixels → low).
+- **QUALITY** = `(0.6·diversity + 0.3·density + 0.1·structure) · gate`, where the
+  gate suppresses high-entropy **noise** (low structure).
+- **DEGENERATE** flags: blank, too sparse, looks-like-noise, or solid fill.
+
+Aim for QUALITY ≳ 0.6 with `DEGENERATE: no`.
+
+## Running the whole benchmark
+
+`scripts/run-bench.py` runs the full loop. Put one grid-JSON per prompt in a
+directory, named by id (`mario.json`, `rainbow.json`, `sun.json`, `saturn.json`,
+`maze.json`, `mona_lisa.json`, `hope.json`), then:
+
+```bash
+export ASEPRITE="/Applications/Aseprite.app/Contents/MacOS/aseprite"
+python3 scripts/run-bench.py ./solutions --scale 16
+```
+
+It scores and renders each solution, writes PNGs to `solutions/rendered/`, marks
+`MISSING` / `INVALID` prompts, and prints an **aggregate** mean-quality score.
+Rendering is skipped gracefully if Aseprite isn't found (scoring still runs).
 
 ## Relationship to the other skills
 
