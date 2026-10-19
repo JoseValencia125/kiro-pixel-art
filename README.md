@@ -3,6 +3,12 @@
 Create, animate, and export **pixel art with Aseprite** directly from
 [Kiro CLI](https://kiro.dev), using natural language and slash commands.
 
+<p align="center">
+  <img src="examples/kiro-ghost-pixel.png" alt="The Kiro ghost logo recreated in pixel art with this tool" width="256">
+  <br>
+  <em>The Kiro ghost, recreated in pixel art with this tool (rendered through real Aseprite).</em>
+</p>
+
 This is a **port of [willibrandon/pixel-plugin](https://github.com/willibrandon/pixel-plugin)**
 (a Claude Code plugin) to Kiro's agent + skills model. It wires the bundled
 [`pixel-mcp`](https://github.com/willibrandon/pixel-plugin) MCP server into a
