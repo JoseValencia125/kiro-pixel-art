@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """score-grid.py — Pixel Art Bench Lite quality score for a grid-JSON file.
 
-Schema checked:  grid = HxW list of ints 0..9  +  palette covering max index.
+Schema checked:  grid = HxW list of non-negative ints + palette covering max index.
+                 (benchmark uses 0..9 / <=10 colors; larger palettes allowed)
 
 Score (0..1):
     quality = (0.6*diversity + 0.3*density + 0.1*structure) * gate
@@ -51,8 +52,8 @@ def check_schema(data):
         if not isinstance(row, list) or len(row) != width:
             return None, None, f"ragged grid at row {y} (expected width {width})"
         for x, c in enumerate(row):
-            if not isinstance(c, int) or not (0 <= c <= 9):
-                return None, None, f"cell ({x},{y})={c!r} not an int in 0..9"
+            if not isinstance(c, int) or c < 0:
+                return None, None, f"cell ({x},{y})={c!r} not a non-negative int"
     max_idx = max(c for row in grid for c in row)
     if len(palette) <= max_idx:
         return None, None, f"palette too short: max index {max_idx}, {len(palette)} entries"

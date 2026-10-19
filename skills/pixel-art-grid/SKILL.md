@@ -15,29 +15,50 @@ based on the dataset
 
 ```json
 {
-  "grid": [[0,1,1, ...], [ ... ], ...],   // NxN list of integers 0-9 (default 24x24)
+  "grid": [[0,1,1, ...], [ ... ], ...],   // H rows × W columns of integer indices
   "palette": ["transparent", "yellow", "orange"]
 }
 ```
 
-- Each cell holds an integer `0..9`. Integer `i` selects `palette[i+1]`
+- Each cell holds an integer index. Integer `i` selects `palette[i+1]`
   (index 0 → first palette entry).
 - **Convention**: index `0` is the background. If its palette name is
   `transparent` / `none` / `bg`, those cells are left transparent when rendered.
 - Palette entries may be color names (`"black"`, `"yellow"`, `"sky blue"`) or
   hex (`"#ff8000"`).
 
+### Size and color limits
+
+- **Size is free**: the grid can be any `H × W` (square or rectangular). The
+  renderer and scorer infer the size from the grid itself.
+  - The **benchmark** (Pixel Art Bench Lite) fixes **24×24** for its 7 prompts,
+    but that's a benchmark convention, not a tool limit. Use 16×16, 32×32,
+    64×48, etc. for your own work.
+- **Colors**:
+  - The **benchmark format** uses single digits `0..9`, i.e. **up to 10 colors**.
+    Stay within `0..9` if you want outputs that are byte-compatible with the
+    dataset.
+  - These tools also accept **larger integer indices** (`0..N`) so you can use
+    **palettes bigger than 10 colors** (e.g. 16/32-color sprites). Any index is
+    valid as long as the `palette` array covers it. In the ASCII preview, indices
+    `10..35` show as `a..z` and anything higher as `+` (cosmetic only).
+
+Rule of thumb: small benchmark-style icons → 24×24 with ≤10 colors; richer
+sprites → larger grid with a bigger palette.
+
 ## How to generate a good grid
 
-Follow the benchmark's quality signal: **Quality = 0.7 × diversity + 0.3 × density**.
+Follow the quality signal (see the scorer below):
+**Quality ≈ 0.6 × diversity + 0.3 × density + 0.1 × structure**, gated down for noise.
 
 - **Diversity**: use several distinct palette colors (not just 2). Add shading
   (a darker + lighter variant of the main color) and an outline color.
 - **Density**: fill a meaningful portion of the grid with non-background cells;
   don't leave the subject tiny in a sea of background.
+- **Structure**: build coherent shapes (connected regions), not scattered pixels.
 - Keep the subject **centered** and **readable** as a silhouette.
-- Always return **valid JSON**: exactly N rows of N integers, every integer in
-  `0..9`, and a `palette` long enough to cover the largest index used.
+- Always return **valid JSON**: every row the same width, every cell a
+  non-negative integer, and a `palette` long enough to cover the largest index.
 
 Workflow:
 

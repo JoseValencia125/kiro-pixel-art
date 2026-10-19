@@ -1,10 +1,11 @@
 -- render-grid.lua — Render a Pixel Art Bench grid-JSON into a sprite/PNG.
 --
 -- Input JSON (schema from AINovice2005/pixel-art-bench-lite):
---   { "grid": [[0,1,1,...],[...], ...],   -- HxW ints 0..9
+--   { "grid": [[0,1,1,...],[...], ...],   -- HxW integer indices (benchmark uses 0..9)
 --     "palette": ["black","#ff0000", ...] -- color per digit index; 0 = first
 --   }
--- Index i selects palette[i+1]. By convention the BACKGROUND index is 0; set it
+-- Index i selects palette[i+1] (any i >= 0 the palette covers; >10 colors OK).
+-- By convention the BACKGROUND index is 0; set it
 -- to a name like "transparent"/"none"/"bg" to leave those cells transparent.
 -- Override the background index with env GRID_BG (default 0, "none" to disable).
 --
@@ -160,17 +161,20 @@ for y = 1, H do
   for x = 1, Wc do
     local c = row[x]
     if type(c) ~= "number" or c ~= math.floor(c) then fail(("cell (%d,%d) is not an integer: %s"):format(x, y, tostring(c))) end
-    if c < 0 or c > 9 then fail(("cell (%d,%d)=%d out of range 0..9"):format(x, y, c)) end
+    if c < 0 then fail(("cell (%d,%d)=%d is negative"):format(x, y, c)) end
     if c > max_idx then max_idx = c end
   end
 end
 if #palette <= max_idx then
   fail(("palette too short: max index used is %d but palette has %d entries"):format(max_idx, #palette))
 end
+-- The Pixel Art Bench format uses single digits 0-9 (<=10 colors). We also
+-- accept larger integer indices so palettes can exceed 10 colors; any index is
+-- valid as long as the palette covers it.
 
--- ---- resolve colors ----
+-- ---- resolve colors (for every palette entry, not just 0..9) ----
 local colors = {}
-for idx = 0, 9 do colors[idx] = to_color(palette[idx + 1]) end
+for idx = 0, #palette - 1 do colors[idx] = to_color(palette[idx + 1]) end
 
 -- ---- render ----
 local img = Image(Wc * scale, H * scale)
@@ -211,7 +215,13 @@ if do_preview then
     local line = {}
     for x = 1, Wc do
       local idx = row[x]
-      line[#line+1] = (idx == bg_index) and "." or tostring(idx)
+      -- single-char cell: bg -> '.', 0-9 -> digit, 10-35 -> a-z, else '+'
+      local ch
+      if idx == bg_index then ch = "."
+      elseif idx <= 9 then ch = tostring(idx)
+      elseif idx <= 35 then ch = string.char(string.byte("a") + (idx - 10))
+      else ch = "+" end
+      line[#line+1] = ch
     end
     print(table.concat(line))
   end
