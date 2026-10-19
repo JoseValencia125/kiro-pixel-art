@@ -166,6 +166,9 @@ Rendering is skipped gracefully if Aseprite isn't found (scoring still runs).
 
 ## Relationship to the other skills
 
+- For art-quality rules (silhouette, clusters, shading, AA, palette, anti-AI-tells)
+  consult the `pixel-art-rules` rulebook and run its validation checklist.
+
 - Once rendered, hand off to `pixel-art-professional` for dithering/shading, or
   to `pixel-art-exporter` for PNG/GIF/spritesheet output.
 - For free-form (non-grid) drawing with the Aseprite MCP tools, use

@@ -30,3 +30,19 @@ The pixel-art-grid skill (skills/pixel-art-grid) is based on the dataset
 (https://huggingface.co/datasets/AINovice2005/pixel-art-bench-lite),
 licensed under Apache-2.0. Only the task format and the seven subject prompts
 are reused; no dataset images are redistributed.
+
+The pixel-art-rules skill (skills/pixel-art-rules) is an original rulebook whose
+rules are synthesised and paraphrased (no text copied) from established pixel-art
+teaching. Credit to those sources:
+  - Pixeli — Pixel Art Knowledge Base (https://pixeli.pebbly.space/knowledge),
+    MIT-licensed plugin/site by pebbly.
+  - Pixel Logic by Michael Azzi.
+  - Pedro Medeiros / Saint11 (https://saint11.art/blog/pixel-art-tutorials/).
+  - Daniel Silber — Pixel Art for Game Developers.
+  - SLYNYRD / Pixelblog (https://www.slynyrd.com/pixelblog-catalogue).
+  - Lospec Pixel Art Tutorials (https://lospec.com/pixel-art-tutorials).
+  - Derek Yu (https://www.derekyu.com/extras.html).
+  - Pixel Joint — The Pixel Art Tutorial.
+  - Helm — Pixelation tutorials.
+These sources are referenced for study; no copyrighted text or images from them
+are redistributed in this repository.

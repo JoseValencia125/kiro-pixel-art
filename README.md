@@ -12,7 +12,7 @@ Create, animate, and export **pixel art with Aseprite** directly from
 This is a **port of [willibrandon/pixel-plugin](https://github.com/willibrandon/pixel-plugin)**
 (a Claude Code plugin) to Kiro's agent + skills model. It wires the bundled
 [`pixel-mcp`](https://github.com/willibrandon/pixel-plugin) MCP server into a
-Kiro agent and ships five workflow skills plus five slash-command skills.
+Kiro agent and ships six workflow skills plus five slash-command skills.
 
 > Requires [Aseprite](https://www.aseprite.org/) v1.3.0+ installed locally.
 
@@ -31,6 +31,7 @@ quantization, dithering, shading, spritesheet export, …).
 | `pixel-art-professional` | dithering, palette optimization, shading, antialiasing |
 | `pixel-art-exporter` | PNG/GIF/spritesheet/JSON for Unity, Godot, Phaser |
 | `pixel-art-grid` | generate pixel art as structured **grid-JSON** (24×24 ints + palette) and render it to a real sprite — based on the [Pixel Art Bench Lite](https://huggingface.co/datasets/AINovice2005/pixel-art-bench-lite) benchmark |
+| `pixel-art-rules` | **MUST / SHOULD / AVOID rulebook** (78 rules + validation checklist): silhouette, palette ramps, clusters & noise, banding, shading, anti-aliasing, dithering, animation, and the tells of AI-generated pixel art |
 
 **Command skills** (slash commands):
 
@@ -117,6 +118,20 @@ The seven benchmark prompts (mario, rainbow, sun, saturn, maze, mona_lisa, hope)
 ship in `skills/pixel-art-grid/scripts/bench-prompts.json` as ready-made tests.
 See [`examples/kiro-ghost-grid.json`](examples/kiro-ghost-grid.json) for the Kiro
 ghost expressed in this format.
+
+## Pixel-art rulebook
+
+The `pixel-art-rules` skill is a compact, actionable rulebook the agent reads
+before drawing or reviewing. It has **78 rules** grouped as **MUST / SHOULD /
+AVOID** across 12 topics (fundamentals, palette & colour, silhouette, outlines,
+lines & curves, clusters & noise, shading & light, anti-aliasing, dithering,
+readability, animation, and generated-art tells), plus an 11-point validation
+checklist to run before calling a sprite done.
+
+It is synthesised and paraphrased from established pixel-art teaching — Pixeli's
+rulebook, *Pixel Logic*, Saint11, Daniel Silber, SLYNYRD, Lospec, Derek Yu,
+Pixel Joint and Helm (credited in [`NOTICE`](NOTICE)). The `pixel-art-grid`
+scorer covers the mechanical half; this checklist covers the rest.
 
 ## Credits & License
 

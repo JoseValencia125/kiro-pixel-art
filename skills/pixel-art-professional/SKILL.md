@@ -373,3 +373,9 @@ You've successfully used this Skill when:
 - Antialiasing smooths edges without blurring
 - Colors follow good color theory principles
 - Sprite has professional, polished appearance
+
+## See also
+
+For the full MUST/SHOULD/AVOID rulebook and a validation checklist (clusters,
+banding, pillow shading, AA strip lengths, palette ramps, generated-art tells),
+consult the **pixel-art-rules** skill before finishing a sprite.
