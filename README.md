@@ -19,11 +19,11 @@ Kiro agent and ships six workflow skills plus five slash-command skills.
 ## Examples
 
 <p align="center">
-  <img src="examples/starry-night.png" alt="A starry night scene in pixel art" width="420">
+  <img src="examples/starry-night-vangogh.png" alt="Pixel-art homage to Van Gogh's The Starry Night" width="460">
   <br>
-  <em>Starry night — hue-shifted sky with ordered dithering, scatter stars, a
-  terminator-shaded moon, and low-contrast hills for depth (see
-  <code>examples/starry-night.lua</code>).</em>
+  <em>A pixel-art homage to Van Gogh's <strong>The Starry Night</strong> (1889) —
+  swirling sky, haloed stars, crescent moon, the flame-cypress and a village with
+  a steeple (see <code>examples/starry-night-vangogh.lua</code>).</em>
 </p>
 
 <p align="center">

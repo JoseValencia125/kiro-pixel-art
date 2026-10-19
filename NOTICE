@@ -46,3 +46,7 @@ teaching. Credit to those sources:
   - Helm — Pixelation tutorials.
 These sources are referenced for study; no copyrighted text or images from them
 are redistributed in this repository.
+
+examples/starry-night-vangogh.* is an original pixel-art homage to Vincent van
+Gogh's "The Starry Night" (1889), which is in the public domain. No copyrighted
+reproduction is redistributed; the pixels were drawn programmatically.
